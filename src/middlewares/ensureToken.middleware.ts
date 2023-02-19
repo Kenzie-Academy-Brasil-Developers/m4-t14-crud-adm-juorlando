@@ -21,7 +21,7 @@ const ensureValidToken = async (
       throw new appError(error.message, 401);
     }
 
-    request.user = {
+    request.validatedUser = {
       id: parseInt(decoded.id),
       admin: decoded.admin
     }
