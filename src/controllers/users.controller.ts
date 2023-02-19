@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import { iUserRequest } from "../interfaces/user.interfaces";
+import { iUser, iUserRequest } from "../interfaces/user.interfaces";
 import { createUserService } from "../services/users/createUser.service";
 import { getUserService } from "../services/users/retrieveUser.service";
 import { deleteUserService } from "../services/users/deleteUser.service";
+import { getUserProfileService } from "../services/users/retireveUserProfile.service"
 
 const createUsersController = async (
   request: Request,
@@ -25,6 +26,17 @@ const retrieveUsersController = async (
   return response.status(200).json(getUser);
 };
 
+const retrieveUsersProfileController = async (
+  {validatedUser}: Request,
+  response: Response
+): Promise<Response> => {
+  const userId: number = validatedUser.id
+
+  const getUser = await getUserProfileService(userId);
+
+  return response.status(200).json(getUser);
+};
+
 const deleteUserController =async (request:Request, response: Response): Promise<Response> => {
   const userId: number = parseInt(request.params.id)
 
@@ -34,4 +46,4 @@ const deleteUserController =async (request:Request, response: Response): Promise
   
 }
 
-export { createUsersController, retrieveUsersController, deleteUserController};
+export { createUsersController, retrieveUsersController, deleteUserController, retrieveUsersProfileController};

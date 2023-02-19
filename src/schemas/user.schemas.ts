@@ -8,11 +8,11 @@ const createUserSchema = z.object({
         return hashSync(pass, 10)
     }),
     admin: z.boolean(),
-    active: z.boolean(),
 })
 
 const returnUserSchema = createUserSchema.extend({
-    id: z.number()
+    id: z.number(),
+    active: z.boolean(),
 })
 
 const returnUserSchemaWithoutPassword = returnUserSchema.omit({password: true})

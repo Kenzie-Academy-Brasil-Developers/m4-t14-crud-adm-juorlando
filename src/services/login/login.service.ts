@@ -5,6 +5,7 @@ import { appError } from "../../error";
 import { iLoginRequest } from "../../interfaces/login.interface";
 import jwt from "jsonwebtoken";
 import { iUserResultComplete } from "../../interfaces/user.interfaces";
+import "dotenv/config";
 
 const createLoginService = async (
   loginData: iLoginRequest
@@ -40,9 +41,9 @@ const createLoginService = async (
 
   const token: string = jwt.sign(
     {
-      active: queryResult.rows[0].active,
+      admin: queryResult.rows[0].admin.toString(),
     },
-    "dhi2ube324R42@h1!b23",
+    process.env.SECRET_Key!,
     {
       expiresIn: "24h",
       subject: queryResult.rows[0].id.toString(),

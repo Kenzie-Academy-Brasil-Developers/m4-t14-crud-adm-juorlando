@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { appError } from "../error";
 import jwt from "jsonwebtoken";
-import { parentPort } from "worker_threads";
+import "dotenv/config";
 
 const ensureValidToken = async (
   request: Request,
@@ -16,17 +16,15 @@ const ensureValidToken = async (
 
   token = token.split(" ")[1];
 
-  jwt.verify(token, "dhi2ube324R42@h1!b23", (error, decoded: any) => {
+  jwt.verify(token, process.env.SECRET_Key!, (error, decoded: any) => {
     if (error) {
       throw new appError(error.message, 401);
     }
 
     request.validatedUser = {
-      id: parseInt(decoded.id),
-      admin: decoded.admin
-    }
-
-
+      id: parseInt(decoded.sub),
+      admin: decoded.admin,
+    };
   });
 
   return next();
