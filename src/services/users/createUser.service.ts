@@ -5,24 +5,31 @@ import {
 } from "../../interfaces/user.interfaces";
 import { client } from "../../database";
 import format from "pg-format";
+import {
+  createUserSchema,
+  returnUserSchemaWithoutPassword,
+} from "../../schemas/user.schemas";
 
 const createUserService = async (
   userData: iUserRequest
-): Promise<iUserWithoutPassword> => {
+): Promise<iUserWithoutPassword | void> => {
+
   const queryString: string = format(
     `
-        INSERT INTO 
-            users(%I)
-        VALUES(%L)
-        RETURNING id, name, email, admin, active;
-        `,
+          INSERT INTO 
+              users(%I)
+          VALUES(%L)
+          RETURNING *;
+          `,
     Object.keys(userData),
     Object.values(userData)
   );
 
   const queryResult: iUserResult = await client.query(queryString);
 
-  return queryResult.rows[0];
+  const newUser = returnUserSchemaWithoutPassword.parse(queryResult.rows[0]);
+
+  return newUser;
 };
 
 export { createUserService };
