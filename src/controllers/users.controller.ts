@@ -4,6 +4,7 @@ import { createUserService } from "../services/users/createUser.service";
 import { getUserService } from "../services/users/retrieveUser.service";
 import { deleteUserService } from "../services/users/deleteUser.service";
 import { getUserProfileService } from "../services/users/retireveUserProfile.service"
+import {activeUserService} from "../services/users/activeUser.service"
 
 const createUsersController = async (
   request: Request,
@@ -46,4 +47,15 @@ const deleteUserController =async (request:Request, response: Response): Promise
   
 }
 
-export { createUsersController, retrieveUsersController, deleteUserController, retrieveUsersProfileController};
+const activeUserController = async (
+  request: Request,
+  response: Response
+): Promise<Response> => {
+  const userId: number = parseInt(request.params.id)
+
+  const getUser = await activeUserService(userId);
+
+  return response.status(200).json(getUser);
+};
+
+export { createUsersController, retrieveUsersController, deleteUserController, retrieveUsersProfileController, activeUserController};

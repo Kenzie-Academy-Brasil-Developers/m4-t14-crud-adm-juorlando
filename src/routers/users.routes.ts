@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  activeUserController,
   createUsersController,
   deleteUserController,
   retrieveUsersController,
@@ -17,5 +18,6 @@ userRoutes.post("", ensureDataIsValidMiddleware(createUserSchema), ensureEmailEx
 userRoutes.get("", ensureValidToken, ensureIsAdmin, retrieveUsersController);
 userRoutes.get("/profile", ensureValidToken, retrieveUsersProfileController)
 userRoutes.delete("/:id", ensureValidToken, ensureUserExist, deleteUserController);
+userRoutes.put("/:id/recover", ensureValidToken, ensureIsAdmin, ensureUserExist, activeUserController)
 
 export { userRoutes };
