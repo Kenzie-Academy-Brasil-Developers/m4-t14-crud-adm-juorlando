@@ -1,5 +1,9 @@
 import { Request, Response } from "express";
-import { iAllUserReturn, iUser, iUserRequest } from "../interfaces/user.interfaces";
+import {
+  iAllUserReturn,
+  iUser,
+  iUserRequest,
+} from "../interfaces/user.interfaces";
 import { createUserService } from "../services/users/createUser.service";
 import { getUserService } from "../services/users/retrieveUser.service";
 import { deleteUserService } from "../services/users/deleteUser.service";

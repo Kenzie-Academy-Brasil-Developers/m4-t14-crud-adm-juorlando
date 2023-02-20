@@ -15,10 +15,6 @@ const returnUserSchema = createUserSchema.extend({
   admin: z.boolean(),
 });
 
-const activeUserSchema = z.object({
-  active: z.boolean(),
-});
-
 const returnUserSchemaWithoutPassword = returnUserSchema.omit({
   password: true,
 });
@@ -30,5 +26,4 @@ export {
   returnUserSchema,
   returnUserSchemaWithoutPassword,
   allUserSchema,
-  activeUserSchema,
 };

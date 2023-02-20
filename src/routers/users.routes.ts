@@ -25,8 +25,20 @@ userRoutes.post(
   ensureEmailExist,
   createUsersController
 );
+
 userRoutes.get("", ensureValidToken, ensureIsAdmin, retrieveUsersController);
+
 userRoutes.get("/profile", ensureValidToken, retrieveUsersProfileController);
+
+userRoutes.patch(
+  "/:id",
+  ensureValidToken,
+  ensureUserExist,
+  ensureRightUser,
+  ensureEmailExist,
+  updateUserController
+);
+
 userRoutes.put(
   "/:id/recover",
   ensureValidToken,
@@ -34,16 +46,7 @@ userRoutes.put(
   ensureUserExist,
   activeUserController
 );
-userRoutes.post(
-  "",
-  ensureValidToken,
-  ensureUserExist,
-  ensureRightUser,
-  ensureEmailExist,
-  ensureDataIsValidMiddleware(createUserSchema),
-  ensureEmailExist,
-  updateUserController
-);
+
 userRoutes.delete(
   "/:id",
   ensureValidToken,
