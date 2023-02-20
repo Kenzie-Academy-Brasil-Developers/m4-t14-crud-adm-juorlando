@@ -4,11 +4,14 @@ import {
   createUserSchema,
   returnUserSchema,
   allUserSchema,
+  updateUserSchema
 } from "../schemas/user.schemas";
 
 type iUserRequest = z.infer<typeof createUserSchema>;
 
 type iUser = z.infer<typeof returnUserSchema>;
+
+type iUpdateRequest = z.infer<typeof updateUserSchema>
 
 type iAllUserReturn = z.infer<typeof allUserSchema>;
 
@@ -23,4 +26,5 @@ export {
   iUserResult,
   iAllUserReturn,
   iUserResultComplete,
+  iUpdateRequest
 };

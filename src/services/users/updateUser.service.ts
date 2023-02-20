@@ -2,14 +2,14 @@ import { QueryConfig, QueryResult } from "pg";
 import format from "pg-format";
 import { client } from "../../database";
 import {
-  iUserRequest,
+  iUpdateRequest,
   iUserResult,
   iUserWithoutPassword,
 } from "../../interfaces/user.interfaces";
 import { returnUserSchemaWithoutPassword } from "../../schemas/user.schemas";
 
 const updateUserService = async (
-  userData: iUserRequest,
+  userData: iUpdateRequest,
   userId: number
 ): Promise<iUserWithoutPassword | void> => {
   const queryString: string = format(

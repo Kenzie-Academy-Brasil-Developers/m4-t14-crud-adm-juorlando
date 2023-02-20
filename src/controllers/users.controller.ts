@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   iAllUserReturn,
+  iUpdateRequest,
   iUser,
   iUserRequest,
 } from "../interfaces/user.interfaces";
@@ -70,7 +71,7 @@ const updateUserController = async (
   response: Response
 ): Promise<Response> => {
   const userId: number = parseInt(request.params.id);
-  const userData: iUserRequest = request.body;
+  const userData: iUpdateRequest = request.body;
 
   const newDataUser = await updateUserService(userData, userId);
 

@@ -7,7 +7,7 @@ import {
   retrieveUsersProfileController,
   updateUserController,
 } from "../controllers/users.controller";
-import { createUserSchema } from "../schemas/user.schemas";
+import { createUserSchema, updateUserSchema } from "../schemas/user.schemas";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
 import {
   ensureEmailExist,
