@@ -1,26 +1,42 @@
 import { QueryConfig, QueryResult } from "pg";
+import format from "pg-format";
 import { client } from "../../database";
-import { iUserRequest, iUserResult, iUserWithoutPassword } from "../../interfaces/user.interfaces";
+import {
+  iAllUserReturn,
+  iUserResult,
+  iUserWithoutPassword,
+} from "../../interfaces/user.interfaces";
+import { returnUserSchemaWithoutPassword } from "../../schemas/user.schemas";
 
-const activeUserService = async (userId: number): Promise<iUserWithoutPassword | void> => {
-
-    const queryString: string = `
-    UPDATE
-        users
-    SET 
-        "active" = true
-    WHERE
-        id = $1
+const activeUserService = async (
+  userData: iAllUserReturn,
+  userId: number
+): Promise<iUserWithoutPassword | void> => {
+  const queryString: string = format(
     `
+        UPDATE
+            users
+        SET 
+            "active" = 'true'
+        WHERE
+            id = $1
+        RETURNING
+        *
+        `,
+    Object.keys(userData),
+    Object.values(userData)
+  );
 
-    const queryConfig: QueryConfig = {
-        text: queryString,
-        values: [userId]
-    }
+  const queryConfig: QueryConfig = {
+    text: queryString,
+    values: [userId],
+  };
 
-    const queryResult: iUserResult = await client.query(queryConfig)
+  const queryResult: iUserResult = await client.query(queryConfig);
 
-    return queryResult.rows[0]
+  const newUser = returnUserSchemaWithoutPassword.parse(queryResult.rows[0]);
+
+  return newUser;
 };
 
 export { activeUserService };

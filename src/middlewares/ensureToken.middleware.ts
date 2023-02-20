@@ -24,6 +24,7 @@ const ensureValidToken = async (
     request.validatedUser = {
       id: parseInt(decoded.sub),
       admin: decoded.admin,
+      active: decoded.active,
     };
   });
 
