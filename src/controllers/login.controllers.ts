@@ -8,7 +8,7 @@ const createLoginController = async (
 ): Promise<Response | void> => {
   const token = await createLoginService(request.body);
 
-  return response.json(token);
+  return response.json({token: token});
 };
 
 export { createLoginController };
