@@ -7,7 +7,7 @@ import {
   retrieveUsersProfileController,
   updateUserController,
 } from "../controllers/users.controller";
-import { createUserSchema, returnUserSchema} from "../schemas/user.schemas";
+import { createUserSchema, returnOptionalUserSchema, returnUserSchema} from "../schemas/user.schemas";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataIsValid.middleware";
 import {
   ensureEmailExist,
@@ -21,7 +21,7 @@ const userRoutes: Router = Router();
 
 userRoutes.post(
   "",
-  ensureDataIsValidMiddleware(returnUserSchema),
+  ensureDataIsValidMiddleware(returnOptionalUserSchema),
   ensureEmailExist,
   createUsersController
 );

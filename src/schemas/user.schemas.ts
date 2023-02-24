@@ -23,11 +23,23 @@ const returnUserSchema = createUserSchema.extend({
   admin: z.boolean(),
 });
 
+const returnOptionalUserSchema = createUserSchema.extend({
+  id: z.number().optional(),
+  active: z.boolean().optional(),
+  admin: z.boolean().optional(),
+});
+
 const returnUserSchemaWithoutPassword = returnUserSchema.omit({
   password: true,
 });
 
+const returnUserOptionalSchemaWithoutPassword = returnOptionalUserSchema.omit({
+  password: true,
+});
+
 const allUserSchema = z.array(returnUserSchemaWithoutPassword);
+
+const userCreateSchema = z.array(returnUserOptionalSchemaWithoutPassword)
 
 export {
   createUserSchema,
@@ -35,4 +47,6 @@ export {
   returnUserSchemaWithoutPassword,
   allUserSchema,
   updateUserSchema,
+  returnOptionalUserSchema,
+  userCreateSchema
 };
