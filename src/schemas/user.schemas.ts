@@ -18,9 +18,9 @@ const updateUserSchema = z.object({
 });
 
 const returnUserSchema = createUserSchema.extend({
-  id: z.number().optional(),
-  active: z.boolean().optional(),
-  admin: z.boolean().optional(),
+  id: z.number(),
+  active: z.boolean(),
+  admin: z.boolean(),
 });
 
 const returnUserSchemaWithoutPassword = returnUserSchema.omit({
